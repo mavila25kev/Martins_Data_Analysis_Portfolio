@@ -1,10 +1,11 @@
 
 # Social Media Ad/Campaign Performance Analysis + Dashboard
 
-
+The goal of this analysis is to review the effectiveness of Ad types and their associated campaigns based on the conversions generated from the user interactions. The datasets used for this project are synthetic and created to emulated that of actual Ad management platform models used by companies like Meta. 
 
 
 ## Context, Data & Tools
+
 
 
 Data Sources:
