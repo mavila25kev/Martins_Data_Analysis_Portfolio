@@ -6,13 +6,12 @@
 
 
 Data Sources:
-- [COLLEGE ROI API](https://le-teen.com/api)
-- [Kaggle](https://www.kaggle.com/datasets/jessemostipak/college-tuition-diversity-and-pay?select=tuition_cost.csv) (source of each dataset used included in Kaggle Post Description)
-
+- [Kaggle](https://www.kaggle.com/datasets/alperenmyung/social-media-advertisement-performance) All data used can be found on this page. According to the source, the data is synthetic and was creating in Python to mirror data models used in working with platforms like Meta Ads Manager.
 
 Tools Used:
-
-
+- MYSQL
+- EXCEL
+- POWER BI
 
 ## Methodology 
 
