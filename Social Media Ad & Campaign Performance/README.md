@@ -15,7 +15,7 @@ The column names and row counts of each table are as follows:
 <tr>
   <td width = "30%">  
     
-*AD_EVENTS* (40,000)
+*AD_EVENTS* (400,000)
 - event_id
 - ad_id,
 - user_id 
@@ -71,7 +71,51 @@ Tools Used:
 ## Methodology 
 
 1. 
+```sql
+DROP TABLE IF EXISTS ad_events;
+CREATE TABLE ad_events (
+    event_id INT, 
+    ad_id INT, 
+    user_id VARCHAR(50),
+    time_stamp DATETIME,
+    day_of_week TEXT,
+    time_of_day TEXT,
+    event_type TEXT,
+    PRIMARY KEY (event_id)
+);
 
+CREATE TABLE ads (
+    ad_id INT, 
+    campaign_id INT,
+    ad_platform TEXT,
+    ad_type TEXT,
+    target_gender TEXT,
+    target_age_group TEXT,
+    target_interests TEXT,
+    PRIMARY KEY (ad_id)
+);
+
+CREATE TABLE users (
+    user_id VARCHAR(50), 
+    user_gender TEXT, 
+    user_age INT,
+    age_group TEXT,
+    country TEXT,
+    location TEXT,
+    interests TEXT,
+    PRIMARY KEY (user_id)
+);
+
+CREATE TABLE campaigns (
+    campaign_id INT, 
+    `name` TEXT, 
+    start_date DATE,
+    end_date DATE,
+    duration INT,
+    total_budget FLOAT,
+    PRIMARY KEY (campaign_id)
+);
+```
 
 ## Limitations and Liabilities
 
