@@ -70,51 +70,15 @@ Tools Used:
 
 ## Methodology 
 
-1. 
+1. First I loaded our datasets via MySQL's Data import wizard creating four separate tables with the columns mentioned above after creating our scheme titled 'social_media_ads'. Some modifications were done during the import setup to correct data types for a full import to be successful. Primarily the columns with DATETIME variables had to be adjusted in order to load properly as well as some TEXT variables being set to INT values. Below are the four tables that will be used and their columns as loaded into MySQL, all rows were included as expected.
+
+
+
+
+2. 
+
 ```sql
-DROP TABLE IF EXISTS ad_events;
-CREATE TABLE ad_events (
-    event_id INT, 
-    ad_id INT, 
-    user_id VARCHAR(50),
-    time_stamp DATETIME,
-    day_of_week TEXT,
-    time_of_day TEXT,
-    event_type TEXT,
-    PRIMARY KEY (event_id)
-);
 
-CREATE TABLE ads (
-    ad_id INT, 
-    campaign_id INT,
-    ad_platform TEXT,
-    ad_type TEXT,
-    target_gender TEXT,
-    target_age_group TEXT,
-    target_interests TEXT,
-    PRIMARY KEY (ad_id)
-);
-
-CREATE TABLE users (
-    user_id VARCHAR(50), 
-    user_gender TEXT, 
-    user_age INT,
-    age_group TEXT,
-    country TEXT,
-    location TEXT,
-    interests TEXT,
-    PRIMARY KEY (user_id)
-);
-
-CREATE TABLE campaigns (
-    campaign_id INT, 
-    `name` TEXT, 
-    start_date DATE,
-    end_date DATE,
-    duration INT,
-    total_budget FLOAT,
-    PRIMARY KEY (campaign_id)
-);
 ```
 
 ## Limitations and Liabilities
