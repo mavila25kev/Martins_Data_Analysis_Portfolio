@@ -3,6 +3,11 @@
 
 The goal of this analysis is to review the effectiveness of Ad types and their associated campaigns based on the conversions generated from the user interactions and translate the findings into insights displayed through a Power Bi dashboard. Additionally, demographic, date/time and user preference data will be used as context for how each of these categories may be influencing the aforementioned goal of the analysis. The datasets used for this project are synthetic and created to emulate that of actual Ad management platform models used by companies like Meta. 
 
+Key Points/Goals:
+- Determine the percentage of customer interactions with ads which are being converted into a purchase
+- Analyze the level of engagement per ad (clicks, likes,etc.)
+- Recognize trends within customer ages, locations, browsing times, etc. and their specific engagement habits. 
+
 
 ## Context, Data & Tools
 
@@ -65,21 +70,38 @@ Data Sources:
 
 Tools Used:
 - MYSQL
-- EXCEL
 - POWER BI
 
 ## Methodology 
 
 1. First I loaded our datasets via MySQL's Data import wizard creating four separate tables with the columns mentioned above after creating our scheme titled 'social_media_ads'. Some modifications were done during the import setup to correct data types for a full import to be successful. Primarily the columns with DATETIME variables had to be adjusted in order to load properly as well as some TEXT variables being set to INT values. Below are the four tables that will be used and their columns as loaded into MySQL, all rows were included as expected.
+<br></br>
 
+<img width="215" height="173" alt="Image" src="https://github.com/user-attachments/assets/46725869-040b-4a33-8a7a-497124499ab7" />
 
+<br></br>
 
+2. I then wanted to review that each table has no duplicates and ran the following queries below, using CTEs and the row_number function to view the count of distinct values per table. Only the users table had duplicate values associated with the user_id for 50 rows.
+<br></br>
 
-2. 
+ <img width="1265" height="1084" alt="Image" src="https://github.com/user-attachments/assets/cbdd7bfe-5eac-476b-a33c-996ed87eb3d4" />
+ 
+<br></br>
+
+Since these 50 user_id values have 50 other user_id duplicate values which each then have some duplicate and non-duplicate values for the other columns in each row, the best course of action would be to use the CTE below for all future joins and queries on the user table to eliminate these 100 rows without altering the original table. I used two CTEs and joined them rather using a sub-query due to the table containing over 10k rows in order to speed up the query time and ran a quick row count check to confirm we no longer have the 100 user_ids.
+<br></br>
+
+<img width="511" height="467" alt="Image" src="https://github.com/user-attachments/assets/724cdd81-c6c4-4473-a183-247151e68f68" />
+
+<br></br>
+
+3. 
+
 
 ```sql
 
 ```
+
 
 ## Limitations and Liabilities
 
