@@ -95,7 +95,14 @@ Since these 50 user_id values have 50 other user_id duplicate values which each 
 
 <br></br>
 
-3. 
+3. Next, I ran the following queries specifically on columns from each table which could be used for grouping/aggregation related insights in order to check on data quality issues like duplicate values, misspellings and formatting issues. There were none found as was expecting from the dataset as it was generated synthetically. Normally this would not always be the case as real world data often does include the aforementioned quality issues. In this case, the data could have been checked in Excel using something like the filter option rather than the various queries which would be tedious depending on the size of the dataset but I opted for reviewing each with a query in this case as the data was already imported and available.
+<br></br>
+
+<img width="310" height="875" alt="Image" src="https://github.com/user-attachments/assets/d4d06eac-1ab5-4d73-9dd5-938248301ddb" />
+
+<br></br>
+
+4. 
 
 
 ```sql
