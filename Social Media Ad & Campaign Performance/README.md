@@ -102,12 +102,106 @@ Since these 50 user_id values have 50 other user_id duplicate values which each 
 
 <br></br>
 
-4. 
+4. Now that I have all data normalized, i wrote a query to look at the overall numbers for the company in regards to the amount of impressions, clicks, social interactions and purchases to set a baseline for later analyzing how each campaign and advertisement method compares. I grouped interactions such as Likes, Comments and Shared posts under one titled 'Social Interactions' since they fit into the similar category, more than an impression but still not a purchase. Below is the query and the result as well.
+
+```sql
+-- 1. Calculating the count of each category of interaction for all users, campaigns and ads as whole to get a baseline for overall numbers
+
+select 
+	count(case when event_type = 'Impression' then user_id end) as impressions,
+	count(case when event_type = 'Click' then user_id end) as clicks,
+	count(case when event_type in ('Like','Comment', 'Share') then user_id end) as social_interactions,
+	count(case when event_type = 'Purchase' then user_id end) as purchases
+from ad_events;
+
+```
+
+<img width="324" height="46" alt="Image" src="https://github.com/user-attachments/assets/dae1e3c7-f541-4cde-86b5-f9449ec84c18" />
+
+<br></br>
+
+5. Then to get the total percentage of purchases being made from interactions I used the following and here was the result:
+
+```sql
+-- 2. What percent of user interaction events are actually resulting in a purchase?
+
+select 
+	round(sum(case when event_type like 'Purchase' then 1 else 0 end)* 100, 2)/count(*) as purchase_percentage
+from ad_events;
+
+```
+
+<img width="170" height="47" alt="Image" src="https://github.com/user-attachments/assets/1b5bbc46-4bf6-4d0d-b266-465128e7ecbc" />
+
+<br></br>
+
+6. I then wanted to break down these numbers further based on the platform type for the ads running to see where most of the success is coming from, below is the query and the result:
+
+```sql
+-- 3. Breakdown of the purchase percentage by ad_type
+
+select a2.ad_type,
+	count(case when event_type = 'Impression' then user_id end) as impressions,
+	count(case when event_type = 'Click' then user_id end) as clicks,
+	count(case when event_type in ('Like','Comment', 'Share') then user_id end) as social_interactions,
+	count(case when event_type = 'Purchase' then user_id end) as purchases,
+    round(sum(case when event_type like 'Purchase' then 1 else 0 end)* 100, 2)/count(*) as purchase_percentage
+from ad_events a1
+left join ads a2 on a1.ad_id = a2.ad_id
+group by a2.ad_type
+;
+
+```
+
+<img width="507" height="116" alt="Image" src="https://github.com/user-attachments/assets/6e0443b2-5a4a-4738-ad60-3f7d913d19dd" />
+
+<br></br>
+
+7.  The same can be done for the platform used for the ads, below is the query and result:
 
 
 ```sql
+-- 4. Break down of purchase percentage based off the social media platform used 
+
+select a2.ad_platform,
+	count(case when event_type = 'Impression' then user_id end) as impressions,
+	count(case when event_type = 'Click' then user_id end) as clicks,
+	count(case when event_type in ('Like','Comment', 'Share') then user_id end) as social_interactions,
+	count(case when event_type = 'Purchase' then user_id end) as purchases,
+    round(sum(case when event_type like 'Purchase' then 1 else 0 end)* 100, 2)/count(*) as purchase_percentage
+from ad_events a1
+left join ads a2 on a1.ad_id = a2.ad_id
+group by a2.ad_platform
+;
 
 ```
+
+<img width="514" height="64" alt="Image" src="https://github.com/user-attachments/assets/f09398ab-95ed-4b05-b380-f2ff8ce17a5d" />
+
+<br></br>
+
+8. Now that I have an overview of the platform, ad type and overall company figures, I reviewed the individual performance of each campaign to see which had best purchase conversion. Below is the query and result:
+
+```sql
+-- 5. How did each campaign do in terms of conversion to purchases?
+
+select c.name,
+	count(case when event_type = 'Impression' then user_id end) as impressions,
+	count(case when event_type = 'Click' then user_id end) as clicks,
+	count(case when event_type in ('Like','Comment', 'Share') then user_id end) as social_interactions,
+	count(case when event_type = 'Purchase' then user_id end) as purchases,
+    round(sum(case when event_type like 'Purchase' then 1 else 0 end)* 100, 2)/count(*) as purchase_percentage
+from ad_events a1
+left join ads a2 on a1.ad_id = a2.ad_id
+left join campaigns c on a2.campaign_id = c.campaign_id
+group by c.name
+order by purchase_percentage desc
+;
+```
+
+<img width="565" height="545" alt="Image" src="https://github.com/user-attachments/assets/d096aaec-d098-42c6-a1b4-42b65d21f5bf" />
+
+<br></br>
 
 
 ## Limitations and Liabilities
